@@ -21,7 +21,7 @@ if (isset($_POST['signin'])) {
 
     if ($query->rowCount() > 0) {
         
-        $_SESSION['alogin'] = $username;
+        // $_SESSION['alogin'] = $username;
         // $username = $_SESSION['alogin'];
         echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
     } else {

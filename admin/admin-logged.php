@@ -1,8 +1,9 @@
 <?php
-    $employeeid=$_SESSION['alogin'];
-    $sql = "SELECT Fullname,UserName, Email from  admin where id = :alogin";
+
+    $adminid = $_SESSION['aid'];
+    $sql = "SELECT * from  admin WHERE id = :aid";
     $query = $database->prepare($sql);
-    $query->bindParam(':alogin', $employeeid, PDO::PARAM_STR);
+    $query->bindParam(':aid', $adminid, PDO::PARAM_STR);
     $query->execute();
     $results = $query->fetchAll(PDO::FETCH_OBJ);
     $cnt=1;

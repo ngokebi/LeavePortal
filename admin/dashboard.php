@@ -1,7 +1,11 @@
 <?php
 session_start();
-error_reporting(0);
+// error_reporting(0);
+ini_set('display_errors', '1');
 
+ini_set('display_startup_errors', '1');
+
+error_reporting(E_ALL);
 include_once "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
@@ -9,7 +13,7 @@ $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
     header('location:index.php');
 } else {
-    $username = $_SESSION['alogin'];
+    // $username = $_SESSION['alogin'];
 ?>
 
     <!doctype html>
@@ -43,7 +47,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 
         <!-- modernizr css -->
         <script src="../assets/js/vendor/modernizr-2.8.3.min.js"></script>
-        <style>
+        <!-- <style>
             #nav {
                 /* display:inline-block; */
                 margin-top: 10px;
@@ -71,7 +75,7 @@ if (strlen($_SESSION['alogin']) == 0) {
             #nav a:hover:not(.active) {
                 background-color: #ddd;
             }
-        </style>
+        </style> -->
     </head>
 
     <body>
@@ -141,9 +145,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                             </div>
                         </div>
                         <div class="col-sm-6 clearfix">
-                        <?php
-                        $page = 'dashboard';
-                        include '../includes/admin-profile-section.php'; ?>
+                        <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>
