@@ -1,13 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
+include '../sessions.php';
 include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    $username = $_SESSION['alogin'];
+
     if (isset($_POST['add'])) {
         $empid = $_POST['empcode'];
         $fname = $_POST['firstName'];
@@ -22,9 +23,9 @@ if (strlen($_SESSION['alogin']) == 0) {
         $city = $_POST['city'];
         $country = $_POST['country'];
         $mobileno = $_POST['mobileno'];
-        $status = 1;
+        $status = "Active";
 
-        $sql = "INSERT INTO employees(EmployeeId, FirstName, LastName, EmailId, Password, Gender, Dob, DeptHead, Department, Address, City, Country, Phonenumber, Status) VALUES(:employeeid, :fname, :lname, :email, :password, :gender, :dob, :depthead, :department, :address, :city, :country, :mobileno, :status)";
+        $sql = "INSERT INTO employees(EmployeeId, FirstName, LastName, Email, Password, Gender, Dob, DeptHead, Department, Address, City, Country, Phonenumber, Status) VALUES(:employeeid, :fname, :lname, :email, :password, :gender, :dob, :depthead, :department, :address, :city, :country, :mobileno, :status)";
         $query = $database->prepare($sql);
         $query->bindParam(':employeeid', $empid, PDO::PARAM_STR);
         $query->bindParam(':fname', $fname, PDO::PARAM_STR);
@@ -43,9 +44,13 @@ if (strlen($_SESSION['alogin']) == 0) {
         $query->execute();
         $lastInsertId = $database->lastInsertId();
         if ($lastInsertId) {
-            $msg = "Record Added Successfully";
+
+            $_SESSION["SuccessMessage"] = "Record Added Successfully";
+            Redirect_to('employees.php');
         } else {
-            $error = "ERROR";
+
+            $_SESSION["ErrorMessage"] = "Error.. Something went Wrong";
+            Redirect_to('employees.php');
         }
     } ?>
 
@@ -186,13 +191,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         </div>
 
                         <div class="col-sm-6 clearfix">
-                            <div class="user-profile pull-right">
-                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?> <i class="fa fa-angle-down"></i></h4>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                                </div>
-                            </div>
+                            <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>

@@ -1,13 +1,14 @@
 <?php
     session_start();
     error_reporting(0);
+    include '../sessions.php';
     include "../includes/Database.php";
 $database = New Database();
 $database = $database->getConnection();
     if(strlen($_SESSION['alogin'])==0){   
-    header('location:index.php');
+        Redirect_to('index.php');
     } else {
-        $username = $_SESSION['alogin'];
+
     $eid=intval($_GET['empid']);
     if(isset($_POST['update'])){
 
@@ -37,7 +38,8 @@ $database = $database->getConnection();
     $query->bindParam(':eid',$eid,PDO::PARAM_STR);
     $query->execute();
 
-    $msg="Employee Record Updated Successfully";
+    $_SESSION["SuccessMessage"] = "Employee Record Updated Successfully";
+    Redirect_to('employees.php');
     }
 
     ?>
@@ -136,13 +138,7 @@ $database = $database->getConnection();
                     </div>
                     
                     <div class="col-sm-6 clearfix">
-                        <div class="user-profile pull-right">
-                            <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                            <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?> <i class="fa fa-angle-down"></i></h4>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="logout.php">Log Out</a>
-                            </div>
-                        </div>
+                    <?php include 'admin-profile-section.php'; ?>
                     </div>
                 </div>
             </div>
@@ -155,18 +151,10 @@ $database = $database->getConnection();
                 <div class="col-lg-6 col-ml-12">
                         <div class="row">
                             <!-- Input form start -->
-                            <div class="col-12 mt-5">
-                            <?php if($error){?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            
-                             </div><?php } 
-                                 else if($msg){?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?> 
-                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                                 </div><?php }?>
+                            <?php
+                                echo ErrorMessage();
+                                echo SuccessMessage();
+                                ?>
                                 <div class="card">
                                 <form name="addemp" method="POST">
 

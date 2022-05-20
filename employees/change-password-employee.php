@@ -81,21 +81,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                 </div>
                 <div class="main-menu">
                     <div class="menu-inner">
-                        <nav>
-                            <ul class="metismenu" id="menu">
-
-                                <li class="#">
-                                    <a href="leave.php" aria-expanded="true"><i class="ti-user"></i><span>Apply Leave
-                                        </span></a>
-                                </li>
-
-                                <li class="#">
-                                    <a href="leave-history.php" aria-expanded="true"><i class="ti-agenda"></i><span>View My Leave History
-                                        </span></a>
-                                </li>
-
-                            </ul>
-                        </nav>
+                    <?php include '../includes/employee-sidebar.php' ?>
                     </div>
                 </div>
             </div>
@@ -133,7 +119,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                 <h4 class="page-title pull-left">Change Current Password</h4>
                                 <ul class="breadcrumbs pull-left">
 
-                                    <li><span>Password Fields</span></li>
+                                    <!-- <li><span>Password Fields</span></li> -->
                                 </ul>
                             </div>
                         </div>
@@ -164,7 +150,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
 
                                                 <div class="form-group">
                                                     <label for="passwordt" class="col-form-label">Existing Password</label>
-                                                    <input class="form-control" id="password" type="password" autocomplete="off" name="password" required>
+                                                    <input class="form-control" id="password" type="password" autocomplete="off" name="password" autocomplete="off" required>
                                                 </div>
 
                                                 <div class="form-group">

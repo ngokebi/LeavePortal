@@ -1,13 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
+include '../sessions.php';
 include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    $username = $_SESSION['alogin'];
+
     //Inactive  Employee    
     if (isset($_GET['inid'])) {
         $id = $_GET['inid'];
@@ -17,7 +18,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         $query->bindParam(':id', $id, PDO::PARAM_STR);
         $query->bindParam(':status', $status, PDO::PARAM_STR);
         $query->execute();
-        header('location:employees.php');
+        Redirect_to('employees.php');
     }
 
     //Activated Employee
@@ -29,7 +30,7 @@ if (strlen($_SESSION['alogin']) == 0) {
         $query->bindParam(':id', $id, PDO::PARAM_STR);
         $query->bindParam(':status', $status, PDO::PARAM_STR);
         $query->execute();
-        header('location:employees.php');
+        Redirect_to('employees.php');
     }
 ?>
 
@@ -132,13 +133,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         </div>
 
                         <div class="col-sm-6 clearfix">
-                            <div class="user-profile pull-right">
-                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?> <i class="fa fa-angle-down"></i></h4>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                                </div>
-                            </div>
+                            <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -152,19 +147,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <div class="col-12 mt-5">
 
                             <div class="card">
-
-
-                                <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-
-                                    </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div><?php } ?>
-
+                                <?php
+                                echo ErrorMessage();
+                                echo SuccessMessage();
+                                ?>
                                 <div class="card-body">
                                     <div class="data-tables datatable-dark">
                                         <center><a href="add-employee.php" class="btn btn-sm btn-info">Add New Employee</a></center>

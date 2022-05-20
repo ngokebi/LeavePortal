@@ -85,7 +85,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
                 </div>
                 <div class="main-menu">
                     <div class="menu-inner">
-                        <?php $page = "employee";
+                        <?php $page = "manage-leave";
                         include '../includes/employee-sidebar.php'
                         ?>
                     </div>
@@ -265,14 +265,14 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                                             ?>
                                                                 <tr>
                                                                     <td colspan="12">
-                                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">SET ACTION</button>
+                                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">APPROVE</button>
 
                                                                         <!-- Modal -->
                                                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                             <div class="modal-dialog" role="document">
                                                                                 <div class="modal-content">
                                                                                     <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="exampleModalLabel">SET ACTION</h5>
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">Approve Leave</h5>
                                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                                             <span aria-hidden="true">&times;</span>
                                                                                         </button>

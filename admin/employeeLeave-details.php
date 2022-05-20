@@ -1,13 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
+include '../sessions.php';
 include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    $username = $_SESSION['alogin'];
+
     // code for update the read notification status
     $isread = 2;
     $leaveid = intval($_GET['leaveid']);
@@ -34,8 +35,8 @@ if (strlen($_SESSION['alogin']) == 0) {
         $query->bindParam(':admremarkdate', $admremarkdate, PDO::PARAM_STR);
         $query->bindParam(':leaveid', $leaveid, PDO::PARAM_STR);
         $query->execute();
-        $msg = "Leave updated Successfully";
-        echo "<script type='text/javascript'> document.location = 'approved-history.php'; </script>";
+        $_SESSION["SuccessMessage"] = "Leave updated Successfully";
+        Redirect_to('approved-history.php');
     } ?>
 
     <!doctype html>
@@ -129,13 +130,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                             </div>
                         </div>
                         <div class="col-sm-6 clearfix">
-                            <div class="user-profile pull-right">
-                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?> <i class="fa fa-angle-down"></i></h4>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                                </div>
-                            </div>
+                            <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -148,16 +143,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 
                         <!-- Striped table start -->
                         <div class="col-lg-12 mt-5">
-                            <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-
-                                </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div><?php } ?>
+                            <?php
+                            echo ErrorMessage();
+                            echo SuccessMessage();
+                            ?>
                             <div class="card">
                                 <div class="card-body">
 
@@ -334,14 +323,14 @@ if (strlen($_SESSION['alogin']) == 0) {
                                                     } ?>
                                                 </tbody>
                                                 </tbody>
-                                                
+
                                             </table>
                                         </div>
-                                        
+
                                     </div>
                                     <button onclick="history.back()" class="btn btn-primary" style="margin-top: 10px;">Back</button>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <!-- Striped table end -->

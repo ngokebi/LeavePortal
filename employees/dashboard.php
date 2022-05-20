@@ -132,7 +132,6 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/pendingapp-counter.php' ?></h1>
-                                            <span>Pending</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales1" height="100"></canvas> -->
@@ -148,7 +147,6 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/declineapp-counter.php' ?></h1>
-                                            <span>Declined</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales2" height="100"></canvas> -->
@@ -164,7 +162,6 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/firstapprovedapp-counter.php' ?></h1>
-                                            <span> First Approved</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales3" height="100"></canvas> -->
@@ -183,7 +180,6 @@ if (strlen($_SESSION['emplogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include '../employees/counters/secondapprovedapp-counter.php' ?></h1>
-                                            <span> Second Approved</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales3" height="100"></canvas> -->

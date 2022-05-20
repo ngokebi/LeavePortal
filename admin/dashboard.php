@@ -6,14 +6,15 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
 error_reporting(E_ALL);
+include '../sessions.php';
 include_once "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    // $username = $_SESSION['alogin'];
+
 ?>
 
     <!doctype html>
@@ -164,7 +165,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/leavetype-counter.php' ?></h1>
-                                            <span>Leave Types</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales1" height="100"></canvas> -->
@@ -180,7 +180,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/emp-counter.php' ?></h1>
-                                            <span>Active Employees</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales2" height="100"></canvas> -->
@@ -189,14 +188,13 @@ if (strlen($_SESSION['alogin']) == 0) {
                             <div class="col-md-4">
                                 <div class="single-report">
                                     <div class="s-report-inner pr--20 pt--30 mb-3">
-                                        <div class="icon" style="background-color: #ff6600;"><i class="fa fa-th-large"></i></div>
+                                        <div class="icon"><i class="fa fa-th-large"></i></div>
                                         <div class="s-report-title d-flex justify-content-between">
                                             <h4 class="header-title mb-0">Available Departments</h4>
 
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/dept-counter.php' ?></h1>
-                                            <span>Employee Departments</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales3" height="100"></canvas> -->
@@ -217,7 +215,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/pendingapp-counter.php' ?></h1>
-                                            <span>Pending</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales1" height="100"></canvas> -->
@@ -233,7 +230,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/declineapp-counter.php' ?></h1>
-                                            <span>Declined</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales2" height="100"></canvas> -->
@@ -249,7 +245,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/firstapprovedapp-counter.php' ?></h1>
-                                            <span> First Approved</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales3" height="100"></canvas> -->
@@ -265,7 +260,6 @@ if (strlen($_SESSION['alogin']) == 0) {
                                         </div>
                                         <div class="d-flex justify-content-between pb-2">
                                             <h1><?php include 'counters/secondapprovedapp-counter.php' ?></h1>
-                                            <span> Second Approved</span>
                                         </div>
                                     </div>
                                     <!-- <canvas id="coin_sales3" height="100"></canvas> -->

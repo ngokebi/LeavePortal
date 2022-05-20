@@ -1,13 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
+include '../sessions.php';
 include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    $username = $_SESSION['alogin'];
+
 ?>
 
     <!doctype html>
@@ -109,13 +110,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         </div>
 
                         <div class="col-sm-6 clearfix">
-                            <div class="user-profile pull-right">
-                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username; ?> <i class="fa fa-angle-down"></i></h4>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                                </div>
-                            </div>
+                            <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>

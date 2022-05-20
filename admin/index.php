@@ -1,10 +1,9 @@
 <?php
 session_start();
 ini_set('display_errors', '1');
-
 ini_set('display_startup_errors', '1');
-
 error_reporting(E_ALL);
+include '../sessions.php';
 include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
@@ -20,12 +19,10 @@ if (isset($_POST['signin'])) {
     $results = $query->fetchAll(PDO::FETCH_OBJ);
 
     if ($query->rowCount() > 0) {
-        
-        // $_SESSION['alogin'] = $username;
-        // $username = $_SESSION['alogin'];
-        echo "<script type='text/javascript'> document.location = 'dashboard.php'; </script>";
+        Redirect_to('dashboard.php');
     } else {
-        echo "<script>alert('Invalid Details');</script>";
+        $_SESSION["ErrorMessage"] = "Invalid Details";
+        Redirect_to('index.php.php');
     }
 }
 

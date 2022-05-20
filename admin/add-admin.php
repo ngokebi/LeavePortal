@@ -1,13 +1,14 @@
 <?php
 session_start();
 error_reporting(0);
+include "../sessions.php";
 require_once "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    $username = $_SESSION['alogin'];
+
     if (isset($_POST['add'])) {
         $fullname = $_POST['fullname'];
         $email = $_POST['email'];
@@ -26,11 +27,11 @@ if (strlen($_SESSION['alogin']) == 0) {
         $query->execute();
         $lastInsertId = $database->lastInsertId();
         if ($lastInsertId) {
-            $msg = "New Admin Was Successfully Added";
-            echo "<script type='text/javascript'> document.location = 'manage-admin.php'; </script>";
-            $msg = "New Admin Was Successfully Added";
+            $_SESSION["SuccessMessage"] = "New Admin Was Successfully Added";
+            Redirect_to('manage-admin.php');
         } else {
-            $error = "ERROR";
+            $_SESSION["ErrorMessage"] = "Error.. Something went Wrong";
+            Redirect_to('manage-admin.php');
         }
     }
 
@@ -174,13 +175,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         </div>
 
                         <div class="col-sm-6 clearfix">
-                            <div class="user-profile pull-right">
-                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username ?> <i class="fa fa-angle-down"></i></h4>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                                </div>
-                            </div>
+                        <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -194,16 +189,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                             <div class="row">
                                 <!-- Input form start -->
                                 <div class="col-12 mt-5">
-                                    <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-
-                                        </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div><?php } ?>
+                                    <?php
+                                    echo ErrorMessage();
+                                    echo SuccessMessage();
+                                    ?>
                                     <div class="card">
                                         <form name="addemp" method="POST">
 

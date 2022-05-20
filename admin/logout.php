@@ -1,5 +1,6 @@
 <?php
     session_start(); 
+    include '../sessions.php';
     $_SESSION = array();
 
     if (ini_get("session.use_cookies")) {
@@ -12,5 +13,5 @@
     
     unset($_SESSION['alogin']);
     session_destroy(); // destroy session
-    header("location:../index.php"); 
+    Redirect_to('../index.php');
 ?>

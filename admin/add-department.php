@@ -4,13 +4,14 @@ session_start();
 
 // ini_set('display_startup_errors', '1');
 error_reporting(0);
+include '../sessions.php';
 include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    $username = $_SESSION['alogin'];
+
     if (isset($_POST['add'])) {
 
         $deptname = $_POST['departmentname'];
@@ -27,10 +28,13 @@ if (strlen($_SESSION['alogin']) == 0) {
         $lastInsertId = $database->lastInsertId();
 
         if ($lastInsertId) {
-            $msg = "Department was Created Successfully";
-            echo "<script type='text/javascript'> document.location = 'department.php'; </script>";
+
+            $_SESSION["SuccessMessage"] = "Department was Created Successfully";
+            Redirect_to('department.php');
         } else {
-            $error = "Something Went Wrong. Please Try Again";
+
+            $_SESSION["ErrorMessage"] = "Something Went Wrong. Please Try Again";
+            Redirect_to('department.php');
         }
     }
 
@@ -135,13 +139,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         </div>
 
                         <div class="col-sm-6 clearfix">
-                            <div class="user-profile pull-right">
-                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username ?> <i class="fa fa-angle-down"></i></h4>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                                </div>
-                            </div>
+                        <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -155,19 +153,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <div class="col-12 mt-5">
 
                             <div class="card">
-
-
-                                <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-
-                                    </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div><?php } ?>
-
+                            <?php
+                                echo ErrorMessage();
+                                echo SuccessMessage();
+                                ?>
                                 <form method="POST">
                                     <div class="card-body">
 

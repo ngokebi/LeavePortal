@@ -1,20 +1,22 @@
 <?php
 session_start();
 error_reporting(0);
+include '../sessions.php';
 include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 if (strlen($_SESSION['alogin']) == 0) {
-    header('location:index.php');
+    Redirect_to('index.php');
 } else {
-    $username = $_SESSION['alogin'];
+
     if (isset($_GET['del'])) {
         $id = $_GET['del'];
         $sql = "DELETE FROM  departments  WHERE id = :id";
         $query = $database->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_STR);
         $query->execute();
-        $msg = " Department has been Deleted";
+        $_SESSION["SuccessMessage"] = "Department has been Deleted";
+        Redirect_to('department.php');
     }
 
 ?>
@@ -118,13 +120,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                         </div>
 
                         <div class="col-sm-6 clearfix">
-                            <div class="user-profile pull-right">
-                                <img class="avatar user-thumb" src="../assets/images/admin.png" alt="avatar">
-                                <h4 class="user-name dropdown-toggle" data-toggle="dropdown"><?php echo $username ?><i class="fa fa-angle-down"></i></h4>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="logout.php">Log Out</a>
-                                </div>
-                            </div>
+                        <?php include 'admin-profile-section.php'; ?>
                         </div>
                     </div>
                 </div>
@@ -138,19 +134,10 @@ if (strlen($_SESSION['alogin']) == 0) {
                         <div class="col-12 mt-5">
 
                             <div class="card">
-
-
-                                <?php if ($error) { ?><div class="alert alert-danger alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($error); ?>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-
-                                    </div><?php } else if ($msg) { ?><div class="alert alert-success alert-dismissible fade show"><strong>Info: </strong><?php echo htmlentities($msg); ?>
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div><?php } ?>
-
+                            <?php
+                                echo ErrorMessage();
+                                echo SuccessMessage();
+                                ?>
                                 <div class="card-body">
                                     <div class="data-tables datatable-dark">
                                         <center><a href="add-department.php" class="btn btn-sm btn-info">Add New Department</a></center>
