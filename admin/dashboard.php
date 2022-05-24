@@ -7,7 +7,7 @@ ini_set('display_startup_errors', '1');
 
 error_reporting(E_ALL);
 include '../sessions.php';
-include_once "../includes/Database.php";
+include "../includes/Database.php";
 $database = new Database();
 $database = $database->getConnection();
 

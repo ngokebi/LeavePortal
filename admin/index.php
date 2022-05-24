@@ -11,7 +11,7 @@ if (isset($_POST['signin'])) {
 
     $username = $_POST['username'];
     $password = md5($_POST['password']);
-    $sql = "SELECT UserName, Password FROM admin WHERE UserName = :username and Password =   :password";
+    $sql = "SELECT * FROM admin WHERE UserName = :username and Password = :password";
     $query = $database->prepare($sql);
     $query->bindParam(':username', $username, PDO::PARAM_STR);
     $query->bindParam(':password', $password, PDO::PARAM_STR);
@@ -19,10 +19,18 @@ if (isset($_POST['signin'])) {
     $results = $query->fetchAll(PDO::FETCH_OBJ);
 
     if ($query->rowCount() > 0) {
+
+        foreach ($results as $result) {
+            $status = $result->Status;
+            $_SESSION['alogin'] = $result->id;
+            $_SESSION['name'] = $result->Fullname;
+            $_SESSION['emal'] = $result->Email;
+        }
+        // var_dump($_SESSION['alogin']);
         Redirect_to('dashboard.php');
     } else {
         $_SESSION["ErrorMessage"] = "Invalid Details";
-        Redirect_to('index.php.php');
+        Redirect_to('index.php');
     }
 }
 
@@ -63,9 +71,15 @@ if (isset($_POST['signin'])) {
     <!-- login area start -->
     <div class="login-area">
         <div class="container">
+
             <div class="login-box ptb--100">
+
                 <form name="signin" method="POST">
                     <div class="login-form-head">
+                        <?php
+                        echo ErrorMessage();
+                        echo SuccessMessage();
+                        ?>
                         <h4>ADMIN PANEL</h4>
                         <p>Employee Leave Portal</p>
                     </div>

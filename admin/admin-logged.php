@@ -1,9 +1,9 @@
 <?php
 
-    $adminid = $_SESSION['aid'];
-    $sql = "SELECT * from  admin WHERE id = :aid";
+    $adminid = $_SESSION['alogin'];
+    $sql = "SELECT * from  admin WHERE id = :alogin";
     $query = $database->prepare($sql);
-    $query->bindParam(':aid', $adminid, PDO::PARAM_STR);
+    $query->bindParam(':alogin', $adminid, PDO::PARAM_STR);
     $query->execute();
     $results = $query->fetchAll(PDO::FETCH_OBJ);
     $cnt=1;
