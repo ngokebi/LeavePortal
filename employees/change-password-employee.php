@@ -76,7 +76,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
             <div class="sidebar-menu">
                 <div class="sidebar-header">
                     <div class="logo">
-                        <a href="leave.php"><img src="../assets/images/icon/logo.png" alt="logo"></a>
+                        <a href="dashboard.php"><img src="../assets/images/icon/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="main-menu">

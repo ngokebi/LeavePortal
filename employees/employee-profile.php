@@ -83,7 +83,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
             <div class="sidebar-menu">
                 <div class="sidebar-header">
                     <div class="logo">
-                        <a href="leave.php"><img src="../assets/images/icon/logo.png" alt="logo"></a>
+                        <a href="dashboard.php"><img src="../assets/images/icon/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="main-menu">
@@ -226,7 +226,7 @@ if (strlen($_SESSION['emplogin']) == 0) {
 
                                                         <div class="form-group">
                                                             <label class="col-form-label">Selected Department</label>
-                                                            <select class="custom-select" name="department" autocomplete="off">
+                                                            <select class="custom-select" name="department" autocomplete="off" disabled>
                                                                 <option value="<?php echo htmlentities($result->Department); ?>"><?php echo htmlentities($result->Department); ?></option>
 
                                                                 <?php $sql = "SELECT DepartmentName from departments";

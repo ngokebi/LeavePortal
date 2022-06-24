@@ -169,6 +169,7 @@ if (strlen($_SESSION['alogin']) == 0) {
                                             <tbody>
 
                                                 <?php
+
                                                 $sql = "SELECT EmployeeId,FirstName,LastName,Department,Status,DateCreated,id from  employees";
                                                 $query = $database->prepare($sql);
                                                 $query->execute();
